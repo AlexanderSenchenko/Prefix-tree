@@ -27,6 +27,6 @@ struct trie *trie_create ();
 //char *trie_lookup ();
 struct trie *trie_insert (struct trie* , char*);
 //struct trie *trie_delete();
-//void trie_print_tree();
+void trie_print(struct trie*);
 
 #endif

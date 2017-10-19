@@ -25,6 +25,7 @@ int main()
 	} else {
 		printf("Error\n");
 	}
+	trie_print(root);
 
 	return 0;
 }

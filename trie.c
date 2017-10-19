@@ -89,5 +89,23 @@ struct trie *trie_lookup ()
 
 void trie_print (struct trie *root)
 {
+	struct trie *node = root;
+	struct set_siblin *n_value;
+	//while () {
+		printf("%p\t", node);
+		printf("%c\t", node->key);
+		printf("%p\t", node->value);
+		if (node->value != NULL)
+			n_value = node->value;
+		while (n_value != NULL) {
+			trie_print(n_value->node_siblin);
+			n_value = n_value->next;
+		}
 
+
+
+
+
+
+	//}
 }
