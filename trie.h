@@ -14,7 +14,7 @@ typedef struct set_siblin
 	char key;
 	struct trie *node_siblin;
 	struct set_siblin *next;
-	struct set_siblin *parent;
+	//struct set_siblin *parent;
 } set_siblin;
 
 typedef struct end_string

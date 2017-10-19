@@ -12,11 +12,13 @@ int main()
 		while (root!= NULL) {
 			printf("%c\n", root->key);
 			if (root->value != NULL) {
-				//printf("%c\n", root->value->key);
-				//printf("%c\n", root->value->next->key);
+				if (root->value != NULL) 
+					printf("%c ", root->value->key);
+				if (root->value->next)
+					printf("%c\n", root->value->next->key);
 				root = root->value->node_siblin;
 			} else {
-				printf("%d\n", root->end->value_string);
+				//printf("%d\n", root->end->value_string);
 				root = NULL;
 			}
 		}

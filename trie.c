@@ -9,7 +9,7 @@ struct trie *trie_create_node ()
 	node = malloc(sizeof(node));
 	if (node == NULL)
 		return NULL;
-	//node->parent = NULL;
+	node->value = NULL;
 	/*node->value = malloc(sizeof(node->value));
 	if (node->value == NULL)
 		return NULL;
@@ -21,45 +21,55 @@ struct trie *trie_create_node ()
 struct trie *trie_insert (struct trie *root, char *value)
 {
 		struct trie *node = root;
-		struct set_siblin *node_value_parent = NULL;
 
 		if (node == NULL) {
 			node = trie_create_node();
 			if (node == NULL) 
 				return NULL;
-			if (root == NULL)
-				root = node;
 		}
 
 		for (int i = 0; i < strlen(value); i++) {
-			while (node->value != NULL && node->value->key != value[i]) {
-				node_value_parent = node->value;
-				node->value = node->value->next;
+			struct set_siblin *node_value_parent = NULL, *n_value = NULL;
+
+			if (node->value != NULL) {
+				n_value = node->value;
 			}
 
-			if (node->value == NULL) {
-				node->value = malloc(sizeof(node->value));
-				node->value->key = value[i];
+			while (n_value != NULL && n_value->key != value[i]) {
+				node_value_parent = n_value;
+				n_value = node->value->next;
+			}
+
+			if (n_value == NULL) {
+				n_value = malloc(sizeof(n_value));
+				n_value->key = value[i];
 
 				if (node_value_parent != NULL) {
-					node_value_parent->next = node->value;
-					node->value->parent = node_value_parent;
-					node_value_parent = NULL;
+					node_value_parent->next = n_value;
+					//n_value->parent = node_value_parent;
 				}
 
-				node->value->node_siblin = trie_create_node();
-				if (node->value->node_siblin == NULL)
+				n_value->node_siblin = trie_create_node();
+				if (n_value->node_siblin == NULL)
 					return NULL;
 
-				node->value->node_siblin->key = node->value->key;
+				n_value->node_siblin->key = n_value->key;
 			}
+			if (root == NULL)
+				root = node;
+
+			if (node->value == NULL)
+				node->value = n_value;
 			
-			node = node->value->node_siblin;
+			node = n_value->node_siblin;
 		}
 
 		node->end = malloc(sizeof(node->end));
 		node->end->parent = node;
 		node->end->value_string = 10;
+
+		if (root == NULL)
+			root = node;
 
 		return root;
 }
