@@ -4,9 +4,9 @@
 typedef struct trie
 {
 	char key;
-	//struct trie *parent;
 	struct set_siblin *value;
 	struct end_string *end;
+	//struct trie *parent;
 } trie;
 
 typedef struct set_siblin
@@ -14,7 +14,7 @@ typedef struct set_siblin
 	char key;
 	struct trie *node_siblin;
 	struct set_siblin *next;
-	//struct set_siblin *parent;
+	struct set_siblin *parent;
 } set_siblin;
 
 typedef struct end_string
@@ -25,7 +25,7 @@ typedef struct end_string
 
 struct trie *trie_create ();
 //char *trie_lookup ();
-struct trie *trie_insert (struct trie* , char*);
+struct trie *trie_insert (struct trie*, char*);
 //struct trie *trie_delete();
 void trie_print(struct trie*);
 

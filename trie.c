@@ -9,12 +9,9 @@ struct trie *trie_create_node ()
 	node = malloc(sizeof(node));
 	if (node == NULL)
 		return NULL;
+	//node->parent = NULL;
 	node->value = NULL;
-	/*node->value = malloc(sizeof(node->value));
-	if (node->value == NULL)
-		return NULL;
-	node->value->next = NULL;
-	//node->value->parent = NULL;*/
+	node->end = NULL;
 	return node;
 }
 
@@ -46,7 +43,7 @@ struct trie *trie_insert (struct trie *root, char *value)
 
 				if (node_value_parent != NULL) {
 					node_value_parent->next = n_value;
-					//n_value->parent = node_value_parent;
+					n_value->parent = node_value_parent;
 				}
 
 				n_value->node_siblin = trie_create_node();
@@ -54,6 +51,7 @@ struct trie *trie_insert (struct trie *root, char *value)
 					return NULL;
 
 				n_value->node_siblin->key = n_value->key;
+				//n_value->node_siblin->parent = node;
 			}
 			if (root == NULL)
 				root = node;
@@ -68,8 +66,10 @@ struct trie *trie_insert (struct trie *root, char *value)
 		node->end->parent = node;
 		node->end->value_string = 10;
 
-		if (root == NULL)
+		if (root == NULL) {
 			root = node;
+			//root->parent = NULL;
+		}
 
 		return root;
 }
@@ -90,22 +90,43 @@ struct trie *trie_lookup ()
 void trie_print (struct trie *root)
 {
 	struct trie *node = root;
-	struct set_siblin *n_value;
-	//while () {
-		printf("%p\t", node);
-		printf("%c\t", node->key);
-		printf("%p\t", node->value);
-		if (node->value != NULL)
-			n_value = node->value;
-		while (n_value != NULL) {
-			trie_print(n_value->node_siblin);
-			n_value = n_value->next;
+	struct set_siblin *n_value = NULL;
+
+	if (node->value != NULL) {
+		n_value = node->value;
+	}
+
+	printf("Node: %p\n", node);
+	printf("Node key: %c\n", node->key);
+	if (node->end != NULL) {
+		printf("End: %d\n", node->end->value_string);
+	} else {
+		printf("End: not\n");
+	}
+	printf("Set value: \n");
+	printf("Value\t\tNext\t\tSiblin\t\tKey\tEnd\n");
+	while (n_value != NULL) {
+		printf("%p\t", n_value);
+		printf("%p\t", n_value->next);
+		if (n_value->next == NULL)
+			printf("\t");
+		printf("%p\t", n_value->node_siblin);
+		printf("%c\t", n_value->node_siblin->key);
+		if (n_value->node_siblin->end != NULL) {
+			printf("%d\n", n_value->node_siblin->end->value_string);
+		} else {
+			printf("Not\n");
 		}
+		n_value = n_value->next;
+	}
 
+	if (node->value != NULL) {
+		n_value = node->value;
+	}
 
-
-
-
-
-	//}
+	while (n_value != NULL) {
+		printf("\n");
+		trie_print(n_value->node_siblin);
+		n_value = n_value->next;
+	}
 }

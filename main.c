@@ -6,25 +6,13 @@ int main()
 {
 	struct trie *root = NULL;
 
-	root = trie_insert(root, "test");
+	root = trie_insert(root, "teso");
 	root = trie_insert(root, "time");
-	if (root != NULL) {
-		while (root!= NULL) {
-			printf("%c\n", root->key);
-			if (root->value != NULL) {
-				if (root->value != NULL) 
-					printf("%c ", root->value->key);
-				if (root->value->next)
-					printf("%c\n", root->value->next->key);
-				root = root->value->node_siblin;
-			} else {
-				//printf("%d\n", root->end->value_string);
-				root = NULL;
-			}
-		}
-	} else {
-		printf("Error\n");
-	}
+	root = trie_insert(root, "tine");
+	root = trie_insert(root, "rect");
+	root = trie_insert(root, "rectum");
+	//root = trie_insert(root, "plumbum");
+	
 	trie_print(root);
 
 	return 0;
