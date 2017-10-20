@@ -3,28 +3,28 @@
 
 typedef struct trie
 {
+	struct set_sibling *value;
+	struct end *end;
 	char key;
-	struct set_siblin *value;
-	struct end_string *end;
 } trie;
 
-typedef struct set_siblin
+typedef struct set_sibling
 {
-	char key;
-	struct trie *node_siblin;
-	struct set_siblin *next;
-} set_siblin;
+	struct set_sibling *next;
+	struct set_sibling *parent;
+	struct trie *node_sibling;
+} set_sibling;
 
-typedef struct end_string
+typedef struct end
 {
-	int value_string;
 	struct trie *parent;
-} end_stirng;
+	int value_string;
+} end;
 
 trie *trie_create ();
 int trie_lookup (trie*, char*);
 trie *trie_insert (trie*, char*, int);
-//trie *trie_delete();
+trie *trie_delete(trie*, char*);
 void trie_print(trie*);
 
 #endif
