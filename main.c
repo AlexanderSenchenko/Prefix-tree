@@ -1,17 +1,15 @@
 #include <stdio.h>
-#include <stdlib.h>
 #include "trie.h"
 
 int main()
 {
-	struct trie *root = NULL;
+	trie *root = NULL;
 
-	root = trie_insert(root, "teso");
-	root = trie_insert(root, "time");
-	root = trie_insert(root, "tine");
-	root = trie_insert(root, "rect");
-	root = trie_insert(root, "rectum");
-	//root = trie_insert(root, "plumbum");
+	root = trie_insert(root, "ab", 10);
+	root = trie_insert(root, "cd", 37);
+	root = trie_insert(root, "ef", 4);
+	root = trie_insert(root, "ag", 83);
+	root = trie_insert(root, "ec", 94);
 	
 	trie_print(root);
 
