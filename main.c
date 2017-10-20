@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "trie.h"
 
-int main()
+int main(int argc, char *argv[])
 {
 	trie *root = NULL;
 
@@ -12,6 +12,8 @@ int main()
 	root = trie_insert(root, "ec", 94);
 	
 	trie_print(root);
+	
+	printf("\nLookup\nString value: %d\n", trie_lookup(root, argv[1]));
 
 	return 0;
 }

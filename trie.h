@@ -22,7 +22,7 @@ typedef struct end_string
 } end_stirng;
 
 trie *trie_create ();
-//char *trie_lookup ();
+int trie_lookup (trie*, char*);
 trie *trie_insert (trie*, char*, int);
 //trie *trie_delete();
 void trie_print(trie*);

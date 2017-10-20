@@ -69,17 +69,37 @@ trie *trie_insert (trie *root, char *value, int key)
 }
 
 /*
-struct trie *trie_delete()
+trie *trie_delete()
 {
 	
 	return NULL;
-}
-
-struct trie *trie_lookup ()
-{
-
-	return NULL;
 }*/
+
+int trie_lookup (trie *root, char *key)
+{
+	trie *node = root;
+
+	for (int i = 0; i < strlen(key); i++) {
+		set_siblin *n_value = NULL;
+
+		if (node->value != NULL)
+			n_value = node->value;
+
+		while (n_value != NULL && n_value->key != key[i]) {
+			n_value = n_value->next;
+		}
+
+		if (n_value == NULL) {
+			return -1;
+		} else {
+			node = n_value->node_siblin;
+		}
+		if (i + 1 == strlen(key) && node->end != NULL)
+			return node->end->value_string;
+	}
+
+	return -1;
+}
 
 void trie_print (trie *root)
 {
